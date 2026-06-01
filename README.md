@@ -19,7 +19,7 @@ A high-performance, multi-tenant analytics dashboard built with **Django 5**, **
 
 ## 🛠️ Tech Stack
 
-* **Backend:** Django 5, Django REST Framework, PostgreSQL, Redis, Pytest, Factory Boy.
+* **Backend:** Django 6, Django REST Framework, PostgreSQL, Redis, Pytest, Factory Boy.
 * **Frontend:** React 19, Vite, TypeScript, TailwindCSS, Recharts, Lucide Icons.
 
 ## 🚀 Quick Start (Local Setup)
