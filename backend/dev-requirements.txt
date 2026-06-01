@@ -1,1 +1,2 @@
+-r requirements.txt
 Faker==40.19.1
