@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { type DashboardResponse } from './types';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { DollarSign, ShoppingBag, Receipt, Activity, RefreshCw } from 'lucide-react';
 
 function App() {
@@ -111,10 +112,56 @@ function App() {
         </div>
       </div>
 
-      {/*Here we will place graphics */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 text-center text-slate-400">
-        Estructura base lista. Listos para inyectar los componentes de Recharts.
+<div className="grid gap-6 md:grid-cols-2 mt-8">  
+  <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+    <div className="mb-4">
+      <h3 className="text-lg font-bold text-slate-900">Tendencia de Ingresos Mensuales</h3>
+      <p className="text-xs text-slate-400">Facturación acumulada del último año</p>
+    </div>
+    <div className="h-80 w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={monthly_trends} margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+          <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} />
+          <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} tickFormatter={(value) => `$${(value / 1000)}k`} />
+          <Tooltip 
+            formatter={(value: any) => [`$${Number(value).toLocaleString()}`, 'Ingresos']}
+            contentStyle={{ backgroundColor: '#ffffff', borderRadius: '8px', borderColor: '#e2e8f0', boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1)' }}
+          />
+          <Line type="monotone" dataKey="revenue" stroke="#4f46e5" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  </div>
+
+  <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+    <div className="mb-4">
+      <h3 className="text-lg font-bold text-slate-900">Top 5 Productos más Vendidos</h3>
+      <p className="text-xs text-slate-400">Rendimiento por ingresos generados</p>
+    </div>
+    <div className="h-80 w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={top_products} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+          <XAxis 
+            dataKey="name" 
+            stroke="#94a3b8" 
+            fontSize={10} 
+            tickLine={false}
+            tickFormatter={(value) => value.length > 12 ? `${value.substring(0, 12)}...` : value} 
+          />
+          <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} tickFormatter={(value) => `$${value.toLocaleString()}`} />
+          <Tooltip 
+            formatter={(value: any) => [`$${Number(value).toLocaleString()}`, 'Ingresos Generados']}
+            contentStyle={{ backgroundColor: '#ffffff', borderRadius: '8px', borderColor: '#e2e8f0', boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1)' }}
+          />
+          <Bar dataKey="total_revenue" fill="#10b981" radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
       </div>
+    </div>
+
+</div>
     </div>
   );
 }
