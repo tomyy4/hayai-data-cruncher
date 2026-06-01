@@ -28,3 +28,21 @@ A high-performance, multi-tenant analytics dashboard built with **Django 5**, **
 Ensure Docker is running, then lift the database and cache layers from the root directory:
 ```bash
 docker-compose up -d
+```
+### 2: Backend Setup
+```bash
+
+cd backend
+python -m venv venv
+source venv/bin/activate  # Or venv\Scripts\activate on Windows
+pip install -r dev-requirements.txt
+python manage.py migrate
+python manage.py seed_data --records 50000  # Populate DB in 4 seconds
+python manage.py runserver
+```
+### 3: Frontend Setup
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
